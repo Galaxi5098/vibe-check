@@ -1,0 +1,106 @@
+// Vibe Check - Sentiment Word Lists
+// Each word has a weight (1-3) for intensity
+
+const POSITIVE_WORDS = {
+  // Strong positive (3)
+  "amazing": 3, "awesome": 3, "beautiful": 3, "best": 3, "brilliant": 3,
+  "celebrate": 3, "champion": 3, "delightful": 3, "excellent": 3, "exceptional": 3,
+  "extraordinary": 3, "fantastic": 3, "glorious": 3, "gorgeous": 3, "greatest": 3,
+  "incredible": 3, "inspiring": 3, "love": 3, "loved": 3, "magnificent": 3,
+  "marvelous": 3, "miraculous": 3, "outstanding": 3, "perfect": 3, "phenomenal": 3,
+  "remarkable": 3, "spectacular": 3, "stunning": 3, "superb": 3, "thrilled": 3,
+  "thrilling": 3, "triumph": 3, "wonderful": 3, "legendary": 3, "masterpiece": 3,
+  "breathtaking": 3, "sensational": 3, "paradise": 3, "blissful": 3, "ecstatic": 3,
+
+  // Medium positive (2)
+  "accomplish": 2, "achieve": 2, "admire": 2, "advantage": 2, "agree": 2,
+  "appealing": 2, "appreciate": 2, "approval": 2, "attractive": 2, "benefit": 2,
+  "bold": 2, "brave": 2, "bright": 2, "calm": 2, "capable": 2,
+  "charming": 2, "cheerful": 2, "clever": 2, "comfortable": 2, "commend": 2,
+  "confidence": 2, "confident": 2, "congratulations": 2, "creative": 2, "delight": 2,
+  "eager": 2, "elegant": 2, "empower": 2, "encourage": 2, "energetic": 2,
+  "enjoy": 2, "enjoyable": 2, "enthusiasm": 2, "exciting": 2, "flourish": 2,
+  "freedom": 2, "friendly": 2, "fulfill": 2, "generous": 2, "genius": 2,
+  "genuine": 2, "glad": 2, "graceful": 2, "grateful": 2, "happiness": 2,
+  "happy": 2, "harmony": 2, "healthy": 2, "heartfelt": 2, "helpful": 2,
+  "honest": 2, "honor": 2, "hopeful": 2, "impressive": 2, "improve": 2,
+  "innovative": 2, "joyful": 2, "kind": 2, "lively": 2, "meaningful": 2,
+  "motivate": 2, "nurture": 2, "optimistic": 2, "passionate": 2, "peaceful": 2,
+  "pleasant": 2, "pleased": 2, "positive": 2, "powerful": 2, "praise": 2,
+  "precious": 2, "pride": 2, "progress": 2, "promising": 2, "prosper": 2,
+  "proud": 2, "refresh": 2, "reliable": 2, "respect": 2, "reward": 2,
+  "satisfied": 2, "secure": 2, "sincere": 2, "smart": 2, "smooth": 2,
+  "solution": 2, "special": 2, "strength": 2, "strong": 2, "succeed": 2,
+  "success": 2, "successful": 2, "support": 2, "terrific": 2, "thankful": 2,
+  "thoughtful": 2, "trust": 2, "upbeat": 2, "uplift": 2, "valuable": 2,
+  "vibrant": 2, "victory": 2, "warmth": 2, "welcome": 2, "winning": 2,
+  "wise": 2, "worthy": 2,
+
+  // Mild positive (1)
+  "accept": 1, "adequate": 1, "balanced": 1, "clean": 1, "clear": 1,
+  "convenient": 1, "cool": 1, "decent": 1, "easy": 1, "effective": 1,
+  "fair": 1, "fine": 1, "fit": 1, "fun": 1, "functional": 1,
+  "gain": 1, "gentle": 1, "good": 1, "great": 1, "handy": 1,
+  "interesting": 1, "like": 1, "neat": 1, "nice": 1, "okay": 1,
+  "open": 1, "pretty": 1, "proper": 1, "quality": 1, "quick": 1,
+  "quiet": 1, "ready": 1, "reasonable": 1, "recommend": 1, "right": 1,
+  "safe": 1, "simple": 1, "solid": 1, "stable": 1, "steady": 1,
+  "suitable": 1, "sure": 1, "sweet": 1, "useful": 1, "valid": 1,
+  "well": 1, "working": 1, "yes": 1
+};
+
+const NEGATIVE_WORDS = {
+  // Strong negative (3)
+  "abysmal": 3, "appalling": 3, "atrocious": 3, "awful": 3, "catastrophe": 3,
+  "catastrophic": 3, "cruel": 3, "devastating": 3, "disaster": 3, "disastrous": 3,
+  "disgusting": 3, "dreadful": 3, "excruciating": 3, "horrific": 3, "horrible": 3,
+  "horrendous": 3, "hate": 3, "hatred": 3, "miserable": 3, "nightmare": 3,
+  "outrageous": 3, "pathetic": 3, "repulsive": 3, "revolting": 3, "ruined": 3,
+  "terrible": 3, "terrifying": 3, "toxic": 3, "tragic": 3, "unbearable": 3,
+  "unforgivable": 3, "vile": 3, "worst": 3, "wretched": 3, "abhorrent": 3,
+  "despicable": 3, "heinous": 3, "malicious": 3, "devastating": 3, "hopeless": 3,
+
+  // Medium negative (2)
+  "abandon": 2, "abuse": 2, "accuse": 2, "afraid": 2, "aggressive": 2,
+  "angry": 2, "annoy": 2, "annoying": 2, "anxious": 2, "argue": 2,
+  "arrogant": 2, "ashamed": 2, "attack": 2, "betray": 2, "bitter": 2,
+  "blame": 2, "boring": 2, "broken": 2, "burden": 2, "careless": 2,
+  "chaos": 2, "cheap": 2, "cheat": 2, "clash": 2, "collapse": 2,
+  "complain": 2, "conflict": 2, "confuse": 2, "corrupt": 2, "crash": 2,
+  "crisis": 2, "criticize": 2, "cruel": 2, "damage": 2, "danger": 2,
+  "dangerous": 2, "decay": 2, "deceive": 2, "decline": 2, "defeat": 2,
+  "defect": 2, "deny": 2, "depressed": 2, "destroy": 2, "difficult": 2,
+  "disappoint": 2, "disappointed": 2, "disappointing": 2, "discrimination": 2, "dismiss": 2,
+  "disrupt": 2, "distress": 2, "disturb": 2, "doubt": 2, "drain": 2,
+  "dull": 2, "embarrass": 2, "enemy": 2, "error": 2, "evil": 2,
+  "exploit": 2, "fail": 2, "failure": 2, "fault": 2, "fear": 2,
+  "fired": 2, "flaw": 2, "foolish": 2, "frustrate": 2, "frustrated": 2,
+  "frustrating": 2, "grim": 2, "guilty": 2, "harm": 2, "harsh": 2,
+  "helpless": 2, "hostile": 2, "hurt": 2, "ignorant": 2, "illegal": 2,
+  "immature": 2, "impossible": 2, "inferior": 2, "injustice": 2, "insecure": 2,
+  "intimidate": 2, "irritate": 2, "jealous": 2, "lazy": 2, "lie": 2,
+  "lonely": 2, "loss": 2, "manipulate": 2, "mess": 2, "mistake": 2,
+  "nasty": 2, "neglect": 2, "nervous": 2, "offend": 2, "pain": 2,
+  "painful": 2, "panic": 2, "penalty": 2, "pessimistic": 2, "poison": 2,
+  "pollute": 2, "poverty": 2, "problem": 2, "punish": 2, "rage": 2,
+  "regret": 2, "reject": 2, "resent": 2, "risk": 2, "rude": 2,
+  "ruin": 2, "sad": 2, "scare": 2, "selfish": 2, "shame": 2,
+  "shock": 2, "sick": 2, "slow": 2, "stress": 2, "struggle": 2,
+  "stupid": 2, "suffer": 2, "suspect": 2, "tension": 2, "threat": 2,
+  "trouble": 2, "ugly": 2, "unfair": 2, "unhappy": 2, "upset": 2,
+  "useless": 2, "victim": 2, "violent": 2, "vulnerable": 2, "waste": 2,
+  "weak": 2, "worry": 2, "worthless": 2,
+
+  // Mild negative (1)
+  "awkward": 1, "bad": 1, "bored": 1, "busy": 1, "cold": 1,
+  "complex": 1, "concern": 1, "confused": 1, "delay": 1, "dislike": 1,
+  "downside": 1, "dumb": 1, "hard": 1, "heavy": 1, "ignore": 1,
+  "impatient": 1, "lack": 1, "late": 1, "limited": 1, "loud": 1,
+  "mediocre": 1, "minor": 1, "miss": 1, "mixed": 1, "narrow": 1,
+  "negative": 1, "no": 1, "noise": 1, "odd": 1, "old": 1,
+  "ordinary": 1, "poor": 1, "rough": 1, "short": 1, "skeptical": 1,
+  "slight": 1, "small": 1, "sour": 1, "stale": 1, "stuck": 1,
+  "tense": 1, "tired": 1, "tough": 1, "tricky": 1, "uncertain": 1,
+  "unclear": 1, "uncomfortable": 1, "unexpected": 1, "unfortunately": 1, "unlikely": 1,
+  "unpleasant": 1, "wrong": 1
+};

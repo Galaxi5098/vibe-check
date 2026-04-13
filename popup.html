@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 300px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #111118;
+      color: #d0d0d8;
+    }
+
+    .header {
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e1e2e;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .app-name span { color: #a78bfa; }
+
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .toggle input { opacity: 0; width: 0; height: 0; }
+
+    .toggle .slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #1e1e2e;
+      border-radius: 10px;
+      transition: 0.2s;
+    }
+
+    .toggle .slider::before {
+      content: "";
+      position: absolute;
+      width: 14px; height: 14px;
+      left: 3px; bottom: 3px;
+      background: #444;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .toggle input:checked + .slider { background: rgba(167, 139, 250, 0.3); }
+    .toggle input:checked + .slider::before { transform: translateX(16px); background: #a78bfa; }
+
+    /* Vibe display */
+    .vibe-section {
+      text-align: center;
+      padding: 24px 16px 20px;
+    }
+
+    .vibe-emoji {
+      font-size: 56px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .vibe-label {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .vibe-desc {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Gauge */
+    .gauge-section {
+      padding: 0 20px 16px;
+    }
+
+    .gauge-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #ff4757, #ff8c00, #ffd700, #a0d468, #22bb66);
+      position: relative;
+      overflow: visible;
+    }
+
+    .gauge-marker {
+      position: absolute;
+      top: -4px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border: 2px solid #111118;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 6px rgba(255,255,255,0.3);
+      transition: left 0.3s ease;
+    }
+
+    .gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 9px;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 1px;
+      background: #1e1e2e;
+      margin: 0 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 10px 6px;
+      background: #161620;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .stat-value.pos { color: #22bb66; }
+    .stat-value.neg { color: #ff4757; }
+    .stat-value.total { color: #a78bfa; }
+
+    .stat-label {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    /* Top words */
+    .words-section {
+      padding: 14px 16px;
+    }
+
+    .words-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .words-col {
+      flex: 1;
+    }
+
+    .words-title {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .words-title.pos { color: #22bb66; }
+    .words-title.neg { color: #ff4757; }
+
+    .word-item {
+      font-size: 11px;
+      padding: 2px 0;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .word-item .w { font-weight: 500; }
+    .word-item .s { font-size: 10px; color: #555; }
+
+    /* Share */
+    .share-section {
+      padding: 10px 16px 14px;
+      border-top: 1px solid #1e1e2e;
+    }
+
+    .share-btn {
+      width: 100%;
+      padding: 8px 0;
+      background: rgba(167, 139, 250, 0.08);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      border-radius: 6px;
+      color: #a78bfa;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .share-btn:hover {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: #a78bfa;
+    }
+
+    /* No data */
+    .no-data {
+      text-align: center;
+      padding: 40px 20px;
+      color: #444;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .no-data .big-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+
+    /* Toast */
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #a78bfa;
+      color: #111;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .toast.visible {
+      display: block;
+      animation: fade 1.5s ease forwards;
+    }
+
+    @keyframes fade {
+      0%, 60% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <span style="font-size: 18px;">✨</span>
+      <span class="app-name">Vibe <span>Check</span></span>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="enabledToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div id="content">
+    <div class="no-data">
+      <span class="big-emoji">🔍</span>
+      Analyzing this page's vibe...
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
